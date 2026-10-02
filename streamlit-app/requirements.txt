@@ -1,0 +1,13 @@
+fastapi==0.136.3
+fastapi-cli==0.0.24
+fastapi-cloud-cli==0.19.0
+huggingface_hub==1.33.0
+matplotlib==3.10.9
+matplotlib-inline==0.2.1
+numpy==2.5.2
+optuna==4.9.0
+pillow==12.3.0
+scikit-learn==1.9.0
+streamlit>=1.62.0
+torch==2.14.0+cu132
+torchvision==0.29.0+cu132
