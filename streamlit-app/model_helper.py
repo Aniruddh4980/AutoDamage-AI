@@ -16,7 +16,7 @@ CLASS_METADATA = {
         'damage_type': 'Breakage / Crack',
         'severity': 'Severe',
         'color': '#ef4444',
-        'description': 'Cracks, fractures, broken headlight/grille or split bumper detected at the front of the vehicle.'
+        'description': 'Major visible damage, breakage or extensive deformation on the Front side.'
     },
     'F_Crushed': {
         'display_name': 'Front Crushed',
@@ -24,7 +24,7 @@ CLASS_METADATA = {
         'damage_type': 'Crushed / Structural Deformation',
         'severity': 'Moderate',
         'color': '#f59e0b',
-        'description': 'Heavy frontal impact with hood crumple, bumper collapse, or radiator/chassis intrusion.'
+        'description': 'Noticeable impact damage with partial crushing, scratches or deformation on the Front side.'
     },
     'F_Normal': {
         'display_name': 'Front Normal',
@@ -32,7 +32,7 @@ CLASS_METADATA = {
         'damage_type': 'No Damage Detected',
         'severity': 'None',
         'color': '#10b981',
-        'description': 'Front body panels, hood, bumper, and headlights appear intact with no apparent structural damage.'
+        'description': 'No visible damage detected on the Front side.'
     },
     'R_Breakage': {
         'display_name': 'Rear Breakage',
@@ -40,7 +40,7 @@ CLASS_METADATA = {
         'damage_type': 'Breakage / Crack',
         'severity': 'Severe',
         'color': '#ef4444',
-        'description': 'Cracked taillight, fractured rear bumper cover, or tailgate glass fracture detected.'
+        'description': 'Major visible damage, breakage or extensive deformation on the Rear side.'
     },
     'R_Crushed': {
         'display_name': 'Rear Crushed',
@@ -48,7 +48,7 @@ CLASS_METADATA = {
         'damage_type': 'Crushed / Structural Deformation',
         'severity': 'Moderate',
         'color': '#f59e0b',
-        'description': 'Severe rear-end collision damage with trunk intrusion, bumper displacement, or rear quarter impact.'
+        'description': 'Noticeable impact damage with partial crushing, scratches or deformation on the Rear side.'
     },
     'R_Normal': {
         'display_name': 'Rear Normal',
@@ -56,7 +56,7 @@ CLASS_METADATA = {
         'damage_type': 'No Damage Detected',
         'severity': 'None',
         'color': '#10b981',
-        'description': 'Rear bumper, trunk lid, and taillights appear intact with no visible structural deformation.'
+        'description': 'No visible damage detected on the Rear side.'
     }
 }
 

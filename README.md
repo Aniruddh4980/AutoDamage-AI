@@ -8,21 +8,21 @@
 [![Optuna](https://img.shields.io/badge/Optuna-Hyperparameter%20Tuning-blueviolet.svg)](https://optuna.org/)
 [![Flaticon](https://img.shields.io/badge/Icons-Flaticon-00D1B2.svg?logo=flaticon&logoColor=white)](https://www.flaticon.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
+</div>
 <br/>
 
 > <img src="assets/icons/lightning.png" width="16" valign="middle"/> **Neural Vision Triage**  
 > **Automated Vehicle Damage Inspector**  
 > *Upload or capture a photo of a vehicle's front or rear section. The fine-tuned ResNet-50 neural network will classify the damage type, pinpoint the impact zone, and gauge severity in real-time.*
 
-<br/>
+
 
 ⚡Live Link: https://autodamage-ai.streamlit.app/
 
 <br/>
 <img src="assets/app_demo.png" alt="AutoDamage AI Diagnostic Assessment Demo" width="940" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);"/>
 
-</div>
+
 
 ---
 
