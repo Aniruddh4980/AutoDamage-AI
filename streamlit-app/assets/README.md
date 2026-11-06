@@ -48,7 +48,7 @@
 3. <img src="assets/icons/risk.png" width="16" valign="middle"/> **Severity Assessment**: None, Moderate, or Severe risk ratings
 4. <img src="assets/icons/confidence.png" width="16" valign="middle"/> **Softmax Probability Distribution**: Calibrated confidence scores across all candidate classes
 
-The application provides a sleek, modern dark-mode dashboard built with **Streamlit** alongside a high-performance **FastAPI** microservice for automated pipeline integration. All UI icons are powered by [Flaticon](https://www.flaticon.com/).
+The application provides a sleek, modern dark-mode dashboard built with **Streamlit** alongside a high-performance **FastAPI** microservice for automated pipeline integration.
 
 ---
 
@@ -111,7 +111,7 @@ Softmax Activation ➔ Class Probabilities
 
 ### Highlights:
 - **Transfer Learning Strategy**: Initial convolution layers are kept frozen to leverage generic edge/texture representations, while `layer4` and the custom classification head are fine-tuned on vehicle damage features.
-- **Optuna Hyperparameter Tuning**: Systematic Bayesian optimization was conducted (see [`Optuna_study.ipynb`](Optuna_study.ipynb)) to identify the optimal dropout rate (`0.44`) and learning rate schedules to mitigate overfitting.
+- **Optuna Hyperparameter Tuning**: Systematic Bayesian optimization was conducted (see [`Optuna_study-Effiecient_net_V2_S.ipynb`](Optuna_study.ipynb)) to identify the optimal dropout rate (`0.44`) and learning rate schedules to mitigate overfitting.
 - **Validation Accuracy**: Achieves **~78% classification accuracy** on test splits across varied angles, lighting environments, and automobile models.
 
 ---
@@ -161,7 +161,7 @@ Car_Damage_Detection_Project/
 │   │   └── saved_model.pth         # Serialized model state dictionary
 │   ├── notebooks/
 │   │   ├── Damage_Detect.ipynb     # Model training, validation & evaluation notebook
-│   │   └── Optuna_study.ipynb      # Hyperparameter optimization experiments 
+│   │   └── Optuna_study-Effiecient_net_V2_S.ipynb      # Hyperparameter optimization experiments 
 │   ├── samples/                    # Pre-packaged demo images for 1-click testing
 │   │   ├── front_breakage.jpg
 │   │   ├── front_crushed.jpg

@@ -1,28 +1,30 @@
-<div style="text-align: center;">
+<div align="center">
+
+<img src="assets/icons/car.png" width="76" alt="AutoDamage AI Logo" />
 
 # AutoDamage AI: Automated Vehicle Damage Inspector
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20CNN-ee4c2c.svg?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Model](https://img.shields.io/badge/Model-EfficientNet--V2--S-orange.svg?logo=google&logoColor=white)](#-model-architecture--training)
+[![Accuracy](https://img.shields.io/badge/Accuracy-86%25-brightgreen.svg)](#-model-performance--evaluation)
 [![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Optuna](https://img.shields.io/badge/Optuna-Hyperparameter%20Tuning-blueviolet.svg)](https://optuna.org/)
-[![Flaticon](https://img.shields.io/badge/Icons-Flaticon-00D1B2.svg?logo=flaticon&logoColor=white)](https://www.flaticon.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-</div>
+
 <br/>
 
 > <img src="assets/icons/lightning.png" width="16" valign="middle"/> **Neural Vision Triage**  
 > **Automated Vehicle Damage Inspector**  
-> *Upload or capture a photo of a vehicle's front or rear section. The fine-tuned ResNet-50 neural network will classify the damage type, pinpoint the impact zone, and gauge severity in real-time.*
+> *Upload or capture a photo of a vehicle's front or rear section. The fine-tuned EfficientNet-V2-S deep neural network will classify the damage type, pinpoint the impact zone, and gauge severity in real-time.*
 
-
-
-⚡Live Link: https://autodamage-ai.streamlit.app/
+⚡ **Live Demo**: [https://autodamage-ai.streamlit.app/](https://autodamage-ai.streamlit.app/)
 
 <br/>
+
 <img src="assets/app_demo.png" alt="AutoDamage AI Diagnostic Assessment Demo" width="940" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);"/>
 
-
+</div>
 
 ---
 
@@ -31,6 +33,8 @@
 - [<img src="assets/icons/lightning.png" width="16" valign="middle"/> Key Features](#-key-features)
 - [<img src="assets/icons/tag.png" width="16" valign="middle"/> Target Classes & Damage Severity](#-target-classes--damage-severity)
 - [<img src="assets/icons/brain.png" width="16" valign="middle"/> Model Architecture & Training](#-model-architecture--training)
+- [<img src="assets/icons/confidence.png" width="16" valign="middle"/> Model Performance & Evaluation](#-model-performance--evaluation)
+- [📝 Changelog](#-changelog)
 - [<img src="assets/icons/folder.png" width="16" valign="middle"/> Project Structure](#-project-structure)
 - [<img src="assets/icons/condition.png" width="16" valign="middle"/> Installation & Setup](#-installation--setup)
 - [<img src="assets/icons/inspection.png" width="16" valign="middle"/> Usage Guide](#-usage-guide)
@@ -42,14 +46,14 @@
 
 ## <img src="assets/icons/report.png" width="24" valign="middle"/> Overview
 
-**AutoDamage AI** is an intelligent computer vision application built to streamline vehicle inspection, insurance triage, and collision damage severity estimation. By leveraging a fine-tuned **ResNet-50 convolutional neural network**, the system processes external photographs of automobiles to instantly determine:
+**AutoDamage AI** is an intelligent computer vision application built to streamline vehicle inspection, insurance claim triage, and collision damage severity estimation. By leveraging a fine-tuned **EfficientNet-V2-S deep convolutional neural network**, the system processes external photographs of automobiles to instantly determine:
 
 1. <img src="assets/icons/zone.png" width="16" valign="middle"/> **Impact Location**: Front End vs. Rear End
 2. <img src="assets/icons/condition.png" width="16" valign="middle"/> **Damage Condition**: Normal (Intact), Breakage (Cracks/Fractures), or Crushed (Structural Deformation)
 3. <img src="assets/icons/risk.png" width="16" valign="middle"/> **Severity Assessment**: None, Moderate, or Severe risk ratings
 4. <img src="assets/icons/confidence.png" width="16" valign="middle"/> **Softmax Probability Distribution**: Calibrated confidence scores across all candidate classes
 
-The application provides a sleek, modern dark-mode dashboard built with **Streamlit** alongside a high-performance **FastAPI** microservice for automated pipeline integration. All UI icons are powered by [Flaticon](https://www.flaticon.com/).
+The application provides a sleek, modern dark-mode dashboard built with **Streamlit** alongside a high-performance **FastAPI** microservice for automated pipeline integration.
 
 ---
 
@@ -86,34 +90,98 @@ The model classifies vehicle photos into 6 distinct categories:
 
 ## <img src="assets/icons/brain.png" width="24" valign="middle"/> Model Architecture & Training
 
-The core classifier is built upon **ResNet-50**, a 50-layer deep residual network pretrained on ImageNet:
+The core damage classification backbone is built upon **EfficientNet-V2-S**, offering high parameter efficiency, faster convergence, and superior feature extraction compared to earlier architectures:
 
 ```
 Input Image (224 × 224 × 3)
          │
          ▼
-ResNet-50 Backbone (Layers 1-3 Frozen)
+EfficientNet-V2-S Feature Extractor (Earlier Stages Frozen)
          │
          ▼
-Fine-Tuned Layer 4 (Residual Blocks Unfrozen)
+Fine-Tuned Top Layers (features[-2:] Unfrozen)
          │
          ▼
 Adaptive Average Pooling
          │
          ▼
-Dropout Layer (Rate: 0.44 - Optimized via Optuna)
+Dropout Regularization Layer (p = 0.29)
          │
          ▼
-Fully Connected Linear Layer (2048 ➔ 6 Classes)
+Linear Classification Head (1280 ➔ 6 Classes)
          │
          ▼
-Softmax Activation ➔ Class Probabilities
+Softmax Activation ➔ Calibrated Probabilities
 ```
 
-### Highlights:
-- **Transfer Learning Strategy**: Initial convolution layers are kept frozen to leverage generic edge/texture representations, while `layer4` and the custom classification head are fine-tuned on vehicle damage features.
-- **Optuna Hyperparameter Tuning**: Systematic Bayesian optimization was conducted (see [`Optuna_study.ipynb`](Optuna_study.ipynb)) to identify the optimal dropout rate (`0.44`) and learning rate schedules to mitigate overfitting.
-- **Validation Accuracy**: Achieves **~78% classification accuracy** on test splits across varied angles, lighting environments, and automobile models.
+### Key Architectural & Training Enhancements:
+- **EfficientNet-V2-S Backbone**: Upgraded from ResNet-50. Freezing earlier feature stages retains generic visual representations while fine-tuning the final 2 backbone layers adapts the network to nuanced vehicular damage patterns.
+- **Discriminative Learning Rates with AdamW**: Utilizes `AdamW` (`weight_decay=3.5e-6`) with differential learning rates:
+  - **Backbone layers (`features[-2:]`)**: `4.6e-5` (slower learning rate to preserve representations)
+  - **Classifier head**: `1.6e-4` (faster rate for rapid domain adaptation)
+- **Dynamic Learning Rate Scheduling**: Employs `ReduceLROnPlateau(mode='min', patience=2, factor=0.2)` to scale down learning rates when validation loss reaches a plateau.
+- **Comprehensive Data Augmentation**: Strengthened augmentation pipeline to counter variations in collision lighting, angle, and vehicle color:
+  - `RandomHorizontalFlip(p=0.5)`
+  - `RandomRotation(degrees=10)`
+  - `ColorJitter(brightness=0.15, contrast=0.15, saturation=0.15, hue=0.03)`
+  - `Resize((256, 256))` followed by `RandomResizedCrop(224, scale=(0.80, 1.0))`
+  - Standard ImageNet channel-wise normalization
+- **Targeted Dataset Expansion**: Integrated **73 newly annotated high-variance images** focusing on historically challenging and minority classes (`F_Crushed`, `R_Crushed`, and `F_Breakage`).
+
+---
+
+## <img src="assets/icons/confidence.png" width="24" valign="middle"/> Model Performance & Evaluation
+
+The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 78% to 86%** on held-out evaluation datasets, displaying strong precision and recall across all damage locations and severity tiers.
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Confusion Matrix</b></td>
+    </tr>
+    <tr>
+      <td><img src="assets/confusion_matrix.png" alt="Confusion Matrix for Vehicle Damage Classification" width="460" style="border-radius: 8px;"/></td>
+    </tr>
+  </table>
+</div>
+
+### Detailed Evaluation Breakdown of Classification report (594 Test Samples):
+
+| Class Index | Target Class | Precision | Recall | F1-Score | Support |
+|:---:|:---|:---:|:---:|:---:|:---:|
+| **0** | `F_Breakage` | 0.89 | 0.91 | **0.90** | 142 |
+| **1** | `F_Crushed` | 0.76 | 0.86 | **0.81** | 97 |
+| **2** | `F_Normal` | 0.96 | 0.86 | **0.91** | 126 |
+| **3** | `R_Breakage` | 0.89 | 0.81 | **0.85** | 83 |
+| **4** | `R_Crushed` | 0.79 | 0.81 | **0.80** | 84 |
+| **5** | `R_Normal` | 0.82 | 0.89 | **0.85** | 62 |
+| **Overall** | **Accuracy** | — | — | **0.86** | **594** |
+| **Macro** | **Macro Average** | 0.85 | 0.85 | **0.85** | 594 |
+| **Weighted** | **Weighted Average** | 0.86 | 0.86 | **0.86** | 594 |
+
+### Observations:
+- **Major Accuracy Uplift**: Overall model accuracy increased by **+8 percentage points** (78% ➔ 86%).
+- **Balanced Class Discrimination**: Both front and rear breakage/normal categories achieve ≥ 0.85 F1-scores, significantly reducing false negatives in severe impact conditions.
+- **Deformation Disambiguation**: The additional training images drastically reduced confusion between crushed panels and simple surface breakages.
+
+---
+
+## 📝 Changelog
+
+### [v2.0.0] - Modernized EfficientNet-V2-S & 86% Accuracy Milestone
+- 🚀 **Backbone Architecture Upgrade**: Migrated from ResNet-50 to **EfficientNet-V2-S**, freezing all initial stages while fine-tuning only the last two feature layers (`features[-2:]`) and the dense classification head.
+- ⚙️ **AdamW with Discriminative Learning Rates**: Switched optimizer from standard Adam to **AdamW** with weight decay (`3.5e-6`) and differential learning rates:
+  - Backbone layers: `4.6e-5`
+  - Classifier head: `1.6e-4`
+- 📉 **Adaptive Learning Rate Scheduler**: Integrated `ReduceLROnPlateau` (`patience=2`, `factor=0.2`, `mode='min'`) to decay learning rate smoothly upon plateauing validation loss.
+- 🔄 **Expanded Data Augmentation**: Introduced rotation (`±10°`), color jitter (brightness, contrast, saturation, hue), and `RandomResizedCrop` to improve invariance to lighting, reflections, and orientation.
+- 📸 **Dataset Expansion (+73 Samples)**: Ingested 73 additional diverse, real-world crash and damage images specifically into `F_Crushed`, `R_Crushed`, and `F_Breakage`.
+- 📊 **Empirical Performance Jump**: Validated **accuracy improvement from 78% to 86%** across 594 test images with a balanced **0.86 weighted F1-score**.
+
+### [v1.0.0] - Initial ResNet-50 Baseline
+- Initial end-to-end pipeline using ResNet-50 transfer learning.
+- 6-class damage and localization categorization with ~78% accuracy.
+- Glassmorphic dark-theme Streamlit dashboard and standalone FastAPI microservice.
 
 ---
 
@@ -122,36 +190,45 @@ Softmax Activation ➔ Class Probabilities
 ```bash
 Car_Damage_Detection_Project/
 ├── assets/
-│   ├── app_demo.png                # Diagnostic assessment UI preview
-│   └── icons/                      # Flaticon UI graphic assets
-├── fastapi-server/                 # REST API backend microservice
+│   ├── app_demo.png                               # Diagnostic assessment UI preview
+│   ├── confusion_matrix.png                       # Test set confusion matrix (86% accuracy)
+│   ├── classification_report.png                  # Precision, recall, and F1 metrics
+│   └── icons/                                     # Flaticon UI graphic assets
+│
+├── fastapi-server/                                # REST API backend microservice
 │   ├── model/
-│   │   └── saved_model.pth         # PyTorch weights for API server
-│   ├── model_helper.py             # Inference pipeline for FastAPI
-│   ├── server.py                   # FastAPI application routes
-│   └── requirements.txt            # API dependencies
-├── streamlit-app/                  # Interactive Streamlit Web Application
+│   │   └── EfficientNetV2S.pth                    # PyTorch weights for API server
+│   ├── model_helper.py                            # Inference pipeline for FastAPI
+│   ├── server.py                                  # FastAPI application routes
+│   └── requirements.txt                           # API dependencies
+├── streamlit-app/                                 # Interactive Streamlit Web Application
 │   ├── .streamlit/
-│   │   └── config.toml             # Custom dark mode UI theme
+│   │   └── config.toml                            # Custom dark mode UI theme
 │   ├── assets/
-│   │   ├── app_demo.png            # App screenshot
-│   │   └── icons/                  # Local Flaticon icon files
+│   │   ├── app_demo.png                           # App screenshot
+│   │   ├── confusion_matrix.png                   # Confusion matrix
+│   │   ├── classification_report.png              # Classification report
+│   │   └── icons/                                 # Local Flaticon icon files
+│   ├── dataset/                                   # Processed vehicle image dataset
 │   ├── model/
-│   │   └── saved_model.pth         # Serialized model state dictionary
+│   │   └── EfficientNetV2S.pth                    # Serialized model state dictionary
 │   ├── notebooks/
-│   │   ├── Damage_Detect.ipynb     # Model training, validation & evaluation notebook
-│   │   └── Optuna_study.ipynb      # Hyperparameter optimization experiments 
-│   ├── samples/                    # Pre-packaged demo images for 1-click testing
+│   │   ├── Auto_Damage_Transfer_learning_v2.ipynb # EfficientNet-V2-S training & evaluation pipeline
+│   │   ├── Auto_Damage_Transfer_learning_v1.ipynb # Baseline exploratory & training notebook
+│   │   └── Optuna_study-Effiecient_net_V2_S.ipynb # Bayesian hyperparameter optimization
+│   │   └── Optuna_study_ConvNeXt.ipynb            # ConvNeXt hyperparameter optimization
+│   │   └── Optuna_study_Resnet50.ipynb            # Resnet50 hyperparameter optimization
+│   ├── samples/                                   # Pre-packaged demo images for 1-click testing
 │   │   ├── front_breakage.jpg
 │   │   ├── front_crushed.jpg
 │   │   ├── front_normal.jpg
 │   │   ├── rear_breakage.jpg
 │   │   ├── rear_crushed.jpg
 │   │   └── rear_normal.jpg
-│   ├── app.py                      # Main Streamlit dashboard application
-│   ├── model_helper.py             # Model definition, transformations & detailed predictions
-│   └── requirements.txt            # Streamlit app dependencies           
-└── README.md                       # Master project documentation
+│   ├── app.py                                     # Main Streamlit dashboard application
+│   ├── model_helper.py                            # Model architecture, transforms & inference logic
+│   └── requirements.txt                           # Streamlit app dependencies           
+└── README.md                                      # Root project documentation
 ```
 
 ---
@@ -229,6 +306,7 @@ fastapi dev server.py
 ## <img src="assets/icons/target.png" width="24" valign="middle"/> Tech Stack
 
 - **Computer Vision & Deep Learning**: [PyTorch](https://pytorch.org/), [Torchvision](https://pytorch.org/vision/), [Pillow](https://pillow.readthedocs.io/)
+- **Architecture**: [EfficientNet-V2-S](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_v2_s.html)
 - **Hyperparameter Optimization**: [Optuna](https://optuna.org/)
 - **Frontend / Dashboard**: [Streamlit](https://streamlit.io/) with custom modern CSS & HTML5
 - **Icons & Graphics**: [Flaticon](https://www.flaticon.com/)

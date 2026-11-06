@@ -90,10 +90,10 @@ def get_model():
     global trained_model
     if trained_model is None:
         model = CarClassifierResNet()
-        model_path = os.path.join(os.path.dirname(__file__), 'model', 'saved_model.pth')
+        model_path = os.path.join(os.path.dirname(__file__), 'model', 'EfficientNetV2S.pth')
         if not os.path.exists(model_path):
             # Fallback if run from repo root
-            model_path = os.path.join('model', 'saved_model.pth')
+            model_path = os.path.join('model', 'EfficientNetV2S.pth')
         state_dict = torch.load(model_path, map_location=device)
         model.load_state_dict(state_dict)
         model.to(device)
