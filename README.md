@@ -194,7 +194,6 @@ Car_Damage_Detection_Project/
 │   ├── confusion_matrix.png                       # Test set confusion matrix (86% accuracy)
 │   ├── classification_report.png                  # Precision, recall, and F1 metrics
 │   └── icons/                                     # Flaticon UI graphic assets
-│
 ├── fastapi-server/                                # REST API backend microservice
 │   ├── model/
 │   │   └── EfficientNetV2S.pth                    # PyTorch weights for API server
@@ -209,7 +208,6 @@ Car_Damage_Detection_Project/
 │   │   ├── confusion_matrix.png                   # Confusion matrix
 │   │   ├── classification_report.png              # Classification report
 │   │   └── icons/                                 # Local Flaticon icon files
-│   ├── dataset/                                   # Processed vehicle image dataset
 │   ├── model/
 │   │   └── EfficientNetV2S.pth                    # Serialized model state dictionary
 │   ├── notebooks/
@@ -219,12 +217,6 @@ Car_Damage_Detection_Project/
 │   │   └── Optuna_study_ConvNeXt.ipynb            # ConvNeXt hyperparameter optimization
 │   │   └── Optuna_study_Resnet50.ipynb            # Resnet50 hyperparameter optimization
 │   ├── samples/                                   # Pre-packaged demo images for 1-click testing
-│   │   ├── front_breakage.jpg
-│   │   ├── front_crushed.jpg
-│   │   ├── front_normal.jpg
-│   │   ├── rear_breakage.jpg
-│   │   ├── rear_crushed.jpg
-│   │   └── rear_normal.jpg
 │   ├── app.py                                     # Main Streamlit dashboard application
 │   ├── model_helper.py                            # Model architecture, transforms & inference logic
 │   └── requirements.txt                           # Streamlit app dependencies           
