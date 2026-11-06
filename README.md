@@ -1,17 +1,14 @@
-<div align="center">
-
-<img src="assets/icons/car.png" width="76" alt="AutoDamage AI Logo" />
+<div style="text-align: center;">
 
 # AutoDamage AI: Automated Vehicle Damage Inspector
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20CNN-ee4c2c.svg?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Model](https://img.shields.io/badge/Model-EfficientNet--V2--S-orange.svg?logo=google&logoColor=white)](#-model-architecture--training)
-[![Accuracy](https://img.shields.io/badge/Accuracy-86%25-brightgreen.svg)](#-model-performance--evaluation)
 [![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Optuna](https://img.shields.io/badge/Optuna-Hyperparameter%20Tuning-blueviolet.svg)](https://optuna.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+</div>
 <br/>
 
 > <img src="assets/icons/lightning.png" width="16" valign="middle"/> **Neural Vision Triage**  
@@ -49,7 +46,7 @@
 **AutoDamage AI** is an intelligent computer vision application built to streamline vehicle inspection, insurance claim triage, and collision damage severity estimation. By leveraging a fine-tuned **EfficientNet-V2-S deep convolutional neural network**, the system processes external photographs of automobiles to instantly determine:
 
 1. <img src="assets/icons/zone.png" width="16" valign="middle"/> **Impact Location**: Front End vs. Rear End
-2. <img src="assets/icons/condition.png" width="16" valign="middle"/> **Damage Condition**: Normal (Intact), Breakage (Cracks/Fractures), or Crushed (Structural Deformation)
+2. <img src="assets/icons/condition.png" width="16" valign="middle"/> **Damage Condition**: Normal (Intact), Crushed (Structural Deformation) or Breakage (Cracks/Fractures)
 3. <img src="assets/icons/risk.png" width="16" valign="middle"/> **Severity Assessment**: None, Moderate, or Severe risk ratings
 4. <img src="assets/icons/confidence.png" width="16" valign="middle"/> **Softmax Probability Distribution**: Calibrated confidence scores across all candidate classes
 
@@ -59,7 +56,7 @@ The application provides a sleek, modern dark-mode dashboard built with **Stream
 
 ## <img src="assets/icons/lightning.png" width="24" valign="middle"/> Key Features
 
-- **Automotive Glassmorphic UI**: High-contrast, responsive dark dashboard styled with custom CSS (`#0b1120` slate navy, glowing status indicators, and clean typography).
+
 - <img src="assets/icons/upload.png" width="18" valign="middle"/> **Direct File Uploader**: Drag and drop `.jpg`, `.jpeg`, `.png`, and `.webp` vehicle photos with automatic format validation.
 - <img src="assets/icons/gallery.png" width="18" valign="middle"/> **1-Click Quick Sample Gallery**: Built-in test cases for all 6 damage categories allowing immediate inspection without searching for crash photos.
 - **Instant Diagnostic Assessment**:
@@ -70,7 +67,7 @@ The application provides a sleek, modern dark-mode dashboard built with **Stream
 - <img src="assets/icons/reset.png" width="18" valign="middle"/> **Quick Reset & Cache Flush**: Dedicated sidebar button to clear app state and reload.
 - <img src="assets/icons/camera.png" width="18" valign="middle"/> **Photography Best Practices Guide**: Integrated sidebar checklist for optimal camera angles, lighting, and framing.
 - **Hardware Acceleration**: Automatic runtime detection of NVIDIA GPU (`CUDA`) with seamless fallback to `CPU`.
-
+- **Automotive Glassmorphic UI**: High-contrast, responsive dark dashboard styled with custom CSS (`#0b1120` slate navy, glowing status indicators, and clean typography).
 ---
 
 ## <img src="assets/icons/tag.png" width="24" valign="middle"/> Target Classes & Damage Severity
@@ -181,7 +178,7 @@ The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 
 ### [v1.0.0] - Initial ResNet-50 Baseline
 - Initial end-to-end pipeline using ResNet-50 transfer learning.
 - 6-class damage and localization categorization with ~78% accuracy.
-- Glassmorphic dark-theme Streamlit dashboard and standalone FastAPI microservice.
+- Dataset of 2300 images with simple data augmentation.
 
 ---
 
@@ -301,7 +298,6 @@ fastapi dev server.py
 - **Architecture**: [EfficientNet-V2-S](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_v2_s.html)
 - **Hyperparameter Optimization**: [Optuna](https://optuna.org/)
 - **Frontend / Dashboard**: [Streamlit](https://streamlit.io/) with custom modern CSS & HTML5
-- **Icons & Graphics**: [Flaticon](https://www.flaticon.com/)
 - **Backend API**: [FastAPI](https://fastapi.tiangolo.com/), [Uvicorn](https://www.uvicorn.org/)
 - **Data & Scientific Computing**: [NumPy](https://numpy.org/), [scikit-learn](https://scikit-learn.org/)
 
