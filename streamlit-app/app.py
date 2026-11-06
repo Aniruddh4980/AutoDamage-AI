@@ -258,12 +258,12 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     st.markdown(f"""
-    - **Architecture**: ResNet-50 (Fine-Tuned)
+    - **Architecture**: EfficientNet V2-S (Fine-Tuned)
     - **Backbone**: PyTorch Deep CNN
     - **Input Resolution**: 224 × 224 px
     - **Inference Device**: `{str(device).upper()}`
     - **Supported Classes**: 6 Zones
-    - **Model Accuracy**: 78%
+    - **Model Accuracy**: 86%
     """)
     
     st.markdown("---")
@@ -306,12 +306,6 @@ with st.sidebar:
         st.rerun()
 
     st.markdown("<div style='height: 14px;'></div>", unsafe_allow_html=True)
-    st.markdown(
-        f"<div style='display:flex; align-items:center; gap:6px; font-size:0.76rem; color:#64748b;'>"
-        f"{flaticon('info', 13)} Icons by <a href='https://www.flaticon.com/' target='_blank' style='color:#94a3b8; text-decoration:none;'>Flaticon</a>"
-        f"</div>",
-        unsafe_allow_html=True
-    )
 
 # ---------------------------------------------------------
 # Header Hero Section

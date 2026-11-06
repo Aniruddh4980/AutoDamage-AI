@@ -60,20 +60,25 @@ CLASS_METADATA = {
     }
 }
 
-class CarClassifierResNet(nn.Module):
-    def __init__(self, num_classes=6, dropout_rate=0.44):
+class CarClassifierEffNet(nn.Module):
+    def __init__(self, num_classes=6, dropout_rate=0.29):
         super().__init__()
-        self.model = models.resnet50(weights='DEFAULT')
+        self.model = models.efficientnet_v2_s(weights='DEFAULT')
         # Freeze all layers except the final fully connected layer
         for param in self.model.parameters():
             param.requires_grad = False
-        # Unfreeze layer 4 and fc layers
-        for param in self.model.layer4.parameters():
+
+        # Retrieve the in_features of the original classifier (which is a Sequential block)
+        in_features = self.model.classifier[1].in_features
+        # Unfreeze top 2 layers and fc layers
+        for param in self.model.features[-2:].parameters():
             param.requires_grad = True
         # Replace the final fully connected layer
-        self.model.fc = nn.Sequential(
+        self.model.classifier = nn.Sequential(
+            nn.Linear(in_features, 256),
+            nn.ReLU(),
             nn.Dropout(dropout_rate),
-            nn.Linear(self.model.fc.in_features, num_classes)
+            nn.Linear(256, num_classes)
         )
 
     def forward(self, x):
@@ -81,15 +86,22 @@ class CarClassifierResNet(nn.Module):
 
 def get_transform():
     return transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.RandomRotation(degrees=10),
+    transforms.ColorJitter(brightness=0.15, contrast=0.15, saturation=0.15, hue=0.03),
+    transforms.Resize((256,256)),
+    transforms.RandomResizedCrop(
+        224,
+        scale=(0.80, 1.0)
+    ),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
 
 def get_model():
     global trained_model
     if trained_model is None:
-        model = CarClassifierResNet()
+        model = CarClassifierEffNet()
         model_path = os.path.join(os.path.dirname(__file__), 'model', 'EfficientNetV2S.pth')
         if not os.path.exists(model_path):
             # Fallback if run from repo root
