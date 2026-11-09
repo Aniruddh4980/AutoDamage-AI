@@ -131,10 +131,10 @@ Softmax Activation ➔ Calibrated Probabilities
 
 The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 78% to 87%** on held-out evaluation datasets, displaying strong precision and recall across all damage locations and severity tiers.
 
-<div align="center">
+<div style="text-align: center;">
   <table>
     <tr>
-      <td align="center"><b>Confusion Matrix</b></td>
+      <td style="text-align: center;"><b>Confusion Matrix</b></td>
     </tr>
     <tr>
       <td><img src="assets/confusion_matrix.png" alt="Confusion Matrix for Vehicle Damage Classification" width="460" style="border-radius: 8px;"/></td>
@@ -144,10 +144,10 @@ The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 
 
 ### Detailed Evaluation Breakdown of Classification report (594 Test Samples):
 
-<div align="center">
+<div style="text-align: center;">
   <table>
     <tr>
-      <td align="center"><b>Confusion Matrix</b></td>
+      <td style="text-align: center;"><b>Classification Report</b></td>
     </tr>
     <tr>
       <td><img src="assets/classification_report.jpg" alt="Confusion Matrix for Vehicle Damage Classification" width="460" style="border-radius: 8px;"/></td>
@@ -194,7 +194,7 @@ The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 
 Car_Damage_Detection_Project/
 ├── assets/
 │   ├── app_demo.png                               # Diagnostic assessment UI preview
-│   ├── confusion_matrix.png                       # Test set confusion matrix (86% accuracy)
+│   ├── confusion_matrix.png                       # Test set confusion matrix (87% accuracy)
 │   ├── classification_report.png                  # Precision, recall, and F1 metrics
 │   └── icons/                                     # Flaticon UI graphic assets
 ├── fastapi-server/                                # REST API backend microservice
@@ -207,17 +207,16 @@ Car_Damage_Detection_Project/
 │   ├── .streamlit/
 │   │   └── config.toml                            # Custom dark mode UI theme
 │   ├── assets/
-│   │   ├── app_demo.png                           # App screenshot
-│   │   ├── confusion_matrix.png                   # Confusion matrix
-│   │   ├── classification_report.png              # Classification report
 │   │   └── icons/                                 # Local Flaticon icon files
 │   ├── model/
 │   │   └── EfficientNetV2S.pth                    # Serialized model state dictionary
 │   ├── notebooks/
+│   │   ├── Auto_Damage_Transfer_learning_v3.ipynb # EfficientNet-V2-S training & evaluation pipeline(Updated)
 │   │   ├── Auto_Damage_Transfer_learning_v2.ipynb # EfficientNet-V2-S training & evaluation pipeline
 │   │   ├── Auto_Damage_Transfer_learning_v1.ipynb # Baseline exploratory & training notebook
-│   │   └── Optuna_study-Effiecient_net_V2_S.ipynb # Bayesian hyperparameter optimization
-│   │   └── Optuna_study_ConvNeXt.ipynb            # ConvNeXt hyperparameter optimization
+│   │   ├── Optuna_study-Effiecient_net_V2_S_updated.ipynb # Bayesian hyperparameter optimization new study
+│   │   ├── Optuna_study-Effiecient_net_V2_S.ipynb # Bayesian hyperparameter optimization
+│   │   ├── Optuna_study_ConvNeXt.ipynb            # ConvNeXt hyperparameter optimization
 │   │   └── Optuna_study_Resnet50.ipynb            # Resnet50 hyperparameter optimization
 │   ├── samples/                                   # Pre-packaged demo images for 1-click testing
 │   ├── app.py                                     # Main Streamlit dashboard application
