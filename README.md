@@ -113,7 +113,7 @@ Softmax Activation ➔ Calibrated Probabilities
 
 ### Key Architectural & Training Enhancements:
 - **EfficientNet-V2-S Backbone**: Upgraded from ResNet-50. Freezing earlier feature stages retains generic visual representations while fine-tuning the final 2 backbone layers adapts the network to nuanced vehicular damage patterns.
-- **Discriminative Learning Rates with AdamW**: Utilizes `AdamW` (`weight_decay=3.5e-6`) with differential learning rates:
+- **Discriminative Learning Rates with AdamW**: Utilizes `AdamW` (`weight_decay=3.49e-6`) with differential learning rates:
   - **Backbone layers (`features[-2:]`)**: `4.6e-5` (slower learning rate to preserve representations)
   - **Classifier head**: `1.6e-4` (faster rate for rapid domain adaptation)
 - **Dynamic Learning Rate Scheduling**: Employs `ReduceLROnPlateau(mode='min', patience=2, factor=0.2)` to scale down learning rates when validation loss reaches a plateau.
@@ -129,7 +129,7 @@ Softmax Activation ➔ Calibrated Probabilities
 
 ## <img src="assets/icons/confidence.png" width="24" valign="middle"/> Model Performance & Evaluation
 
-The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 78% to 86%** on held-out evaluation datasets, displaying strong precision and recall across all damage locations and severity tiers.
+The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 78% to 87%** on held-out evaluation datasets, displaying strong precision and recall across all damage locations and severity tiers.
 
 <div align="center">
   <table>
@@ -144,26 +144,32 @@ The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 
 
 ### Detailed Evaluation Breakdown of Classification report (594 Test Samples):
 
-| Class Index | Target Class | Precision | Recall | F1-Score | Support |
-|:---:|:---|:---:|:---:|:---:|:---:|
-| **0** | `F_Breakage` | 0.89 | 0.91 | **0.90** | 142 |
-| **1** | `F_Crushed` | 0.76 | 0.86 | **0.81** | 97 |
-| **2** | `F_Normal` | 0.96 | 0.86 | **0.91** | 126 |
-| **3** | `R_Breakage` | 0.89 | 0.81 | **0.85** | 83 |
-| **4** | `R_Crushed` | 0.79 | 0.81 | **0.80** | 84 |
-| **5** | `R_Normal` | 0.82 | 0.89 | **0.85** | 62 |
-| **Overall** | **Accuracy** | — | — | **0.86** | **594** |
-| **Macro** | **Macro Average** | 0.85 | 0.85 | **0.85** | 594 |
-| **Weighted** | **Weighted Average** | 0.86 | 0.86 | **0.86** | 594 |
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Confusion Matrix</b></td>
+    </tr>
+    <tr>
+      <td><img src="assets/classification_report.jpg" alt="Confusion Matrix for Vehicle Damage Classification" width="460" style="border-radius: 8px;"/></td>
+    </tr>
+  </table>
+</div>
 
 ### Observations:
-- **Major Accuracy Uplift**: Overall model accuracy increased by **+8 percentage points** (78% ➔ 86%).
+- **Major Accuracy Uplift**: Overall model accuracy increased by **+9 percentage points** (78% ➔ 87%).
 - **Balanced Class Discrimination**: Both front and rear breakage/normal categories achieve ≥ 0.85 F1-scores, significantly reducing false negatives in severe impact conditions.
 - **Deformation Disambiguation**: The additional training images drastically reduced confusion between crushed panels and simple surface breakages.
 
 ---
 
 ## 📝 Changelog
+
+### [v2.1.0] - Modernized EfficientNet-V2-S & 87% Accuracy Milestone
+- 🚀 **Fixed a bug in the Data augmentation and Pre-Processing.**
+- ⚙️ **AdamW with Discriminative Learning Rates(Updated)**: Weight decay (`3.49e-6`) and differential learning rates:
+  - Backbone layers: `8.16e-6`
+  - Classifier head: `6.1e-4`
+- ⚙️ **Stratified Train-Validation split introduced and Accuracy improvement from 86% to 87%.**
 
 ### [v2.0.0] - Modernized EfficientNet-V2-S & 86% Accuracy Milestone
 - 🚀 **Backbone Architecture Upgrade**: Migrated from ResNet-50 to **EfficientNet-V2-S**, freezing all initial stages while fine-tuning only the last two feature layers (`features[-2:]`) and the dense classification head.
@@ -175,7 +181,7 @@ The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 
 - 📸 **Dataset Expansion (+73 Samples)**: Ingested 73 additional diverse, real-world crash and damage images specifically into `F_Crushed`, `R_Crushed`, and `F_Breakage`.
 - 📊 **Empirical Performance Jump**: Validated **accuracy improvement from 78% to 86%** across 594 test images with a balanced **0.86 weighted F1-score**.
 
-### [v1.0.0] - Initial ResNet-50 Baseline
+### [v1.0.0] - Initial ResNet-50 Baseline & 78% Accuracy Milestone
 - Initial end-to-end pipeline using ResNet-50 transfer learning.
 - 6-class damage and localization categorization with ~78% accuracy.
 - Dataset of 2300 images with simple data augmentation.

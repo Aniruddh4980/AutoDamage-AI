@@ -1,7 +1,5 @@
 import os
-import json
 import base64
-from datetime import datetime
 from PIL import Image
 import streamlit as st
 from model_helper import predict_detailed, class_names, CLASS_METADATA, device
@@ -263,7 +261,7 @@ with st.sidebar:
     - **Input Resolution**: 224 × 224 px
     - **Inference Device**: `{str(device).upper()}`
     - **Supported Classes**: 6 Zones
-    - **Model Accuracy**: 86%
+    - **Model Accuracy**: 87%
     """)
     
     st.markdown("---")
