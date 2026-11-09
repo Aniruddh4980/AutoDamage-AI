@@ -134,7 +134,7 @@ The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 
 <div style="text-align: center;">
   <table>
     <tr>
-      <td style="text-align: center;"><b>Confusion Matrix</b></td>
+      <td><b>Confusion Matrix</b></td>
     </tr>
     <tr>
       <td><img src="assets/confusion_matrix.png" alt="Confusion Matrix for Vehicle Damage Classification" width="460" style="border-radius: 8px;"/></td>
@@ -147,7 +147,7 @@ The upgraded EfficientNet-V2-S model achieved a remarkable **accuracy leap from 
 <div style="text-align: center;">
   <table>
     <tr>
-      <td style="text-align: center;"><b>Classification Report</b></td>
+      <td><b>Classification Report</b></td>
     </tr>
     <tr>
       <td><img src="assets/classification_report.jpg" alt="Confusion Matrix for Vehicle Damage Classification" width="460" style="border-radius: 8px;"/></td>
